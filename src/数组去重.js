@@ -31,22 +31,24 @@ const arrayNoRepeat = (arr = [], key = 'scheduleDate') => {
 }
 
 const arrayReduceNoRepeat = (arr = [], key = 'scheduleDate') => {
-  const stack = []
+  const stack = [] // 临时存储区
 
   return arr.reduce((cur, next) => {
-    if (!stack.includes(next[key])) {
-      cur.push(next)
-      stack.push(next[key])
+    if (!stack.includes(next[key])) { // 判断临时存储区里面是否存在当前的key
+      cur.push(next) // 如果没有的话，将当前项推入新数组
+      stack.push(next[key]) // 如果当前项在临时存储区不存在 则将当前项的key推入临时存储区
     }
 
-    return cur
+    return cur // 返回处理后的新数组
   }, [])
 }
 
 const arrayFlatMapNoRepeat = (arr = [], key = 'scheduleDate') => {
-  const stack = []
+  const stack = [] // 临时存储区
 
+  // todo 利用flatMap 只有当条件为真时将某一项返回到新数组里面，不为真时则不返回任何数据
   return arr.flatMap(item => {
+    // todo 临时存储区没有当前项的key 将当前的key推入临时存储区 并且把当前项推入新数组
     if (!stack.includes(item[key])) {
       stack.push(item[key])
       return item
@@ -57,11 +59,15 @@ const arrayFlatMapNoRepeat = (arr = [], key = 'scheduleDate') => {
 }
 
 const arrStackNoRepeat = (arr = [], key = 'scheduleDate') => {
-  const stack = []
-  const noRepeatArr = []
+  const stack = [] // 定义一个临时存储区
+  const noRepeatArr = [] // 用来存储处理后的数据
 
   while(arr.length) {
-    const next = arr.pop()
+    const next = arr.pop() // 取出最后数组的一项
+
+    // todo 判断临时存储区是否有当前项
+    //  如果没有则将当前项推入noRepeatArr
+    //  并且将当前项的key推入临时存储区
     if (!stack.includes(next[key])) {
       noRepeatArr.push(next)
       stack.push(next[key])
