@@ -7,24 +7,33 @@
     <style>
       .root {
         height: 500vh;
+          background: #6bf5f5;
+          padding-top: 400px;
       }
       .hm-banner_title-container {
-        position: sticky;
-        top: 35%;
-        transform: translateY(-50%);
+          background: #7f7fd5;
+          height: 400vh;
         width: 100%;
+          box-sizing: border-box;
       }
-      .hm-banner_title-container > div {
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: flex;
-        justify-content: center;
-        width: 100%;
+      .animation-container {
+          position: sticky;
+          top: 30%;
+          background: black;
+          height: 300px;
+          display: flex;
+          align-items: center;
+      }
+      .animation-container > div  {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          width: 100%;
       }
       .hm-banner_title-container .char {
+          display: block;
         font-family: Gellix;
-        font-size: 6vw;
+        font-size: 260px;
         font-style: normal;
         font-weight: 700;
         /* line-height: 312px; */
@@ -127,10 +136,13 @@
     </style>
     <script src="../jquery-3.7.1.min.js"></script>
     <script src="../silky/silky.js"></script>
+    <script src="./animate.js"></script>
   </head>
   <body>
     <div class="root">
-      <div class="hm-banner_title-container"></div>
+      <div class="hm-banner_title-container">
+        <div class="animation-container"></div>
+      </div>
     </div>
 
     <script>
@@ -148,11 +160,14 @@
               }
 
               const label = idx === 0 ? c.toUpperCase() : c;
+              const len = Math.floor(charMapSlice.length / 2)
+              const index = idx > len ? charMapSlice.length - (idx + 1) : idx
               if (c === ".") {
                 return {
                   label,
                   class: `${classPrefix}_dot`,
                   dataEffect: classPrefix,
+                  index
                 };
               }
               return {
@@ -162,6 +177,7 @@
                     ? `${classPrefix}_${c}${charMap[c]}`
                     : `${classPrefix}_${c}`,
                 dataEffect: classPrefix,
+                index
               };
             });
           };
@@ -176,7 +192,7 @@
         const createNode = (slice = []) => {
           let html = "";
           slice.forEach((s) => {
-            html += `<span class="char ${s.class}" data-char="${s.label}" data-effect="${s.dataEffect}">${s.label}</span>`;
+            html += `<span class="char ${s.class}" data-index="${s.index}" data-char="${s.label}" data-effect="${s.dataEffect}">${s.label}</span>`;
           });
 
           return html;
@@ -187,87 +203,149 @@
 
           return `
                 <div>${createNode(commerce)}</div>
+                <div>${createNode(data)}</div>
+                <div>${createNode(ai)}</div>
                 `;
         };
 
-        const $bannerTitleRoot = $(".hm-banner_title-container");
-        $bannerTitleRoot.append(createBannerEle());
-
-        const updateCss = (char, from = {}, to = {}) => {
-          $(char).css({
-            filter: `blur(${from.blur}px) opacity(${from.opacity})`,
-            transform: `translate3d(0px, 0px, 0px) rotate(${from.rotate}deg) scale(${from.scale})`,
-          });
-        };
+        const $animationContainer = $(".animation-container");
+        $animationContainer.append(createBannerEle());
 
         $(document).ready(function () {
-          let lastYOffset = 0;
-          let deltayCount = 0;
           const commerce = [...$('[data-effect="hm-commerce"].char')];
           const data = [...$('[data-effect="hm-data"].char')];
           const ai = [...$('[data-effect="hm-ai"].char')];
 
-          const charLen = Math.ceil(commerce.length / 2);
-          for (let i = 1; i <= charLen; i++) {
-            updateCss(commerce[i - 1], {
-              blur: i * 4,
-              opacity: 0,
-              rotate: -i * 2,
-              scale: 1.5,
-            });
-            updateCss(commerce[commerce.length - i], {
-              blur: i * 4,
-              opacity: 0,
-              rotate: -i * 2,
-              scale: 1.5,
-            });
-          }
-
           const silky = new Silky();
           silky.install();
 
-          function throttle(func, delay) {
-            let timerId;
-            let lastExecTime = 0;
+          const bannerContainer = document.querySelector('.hm-banner_title-container')
+          const bannerContainerGroundRect = bannerContainer.getBoundingClientRect()
+          const scrollY = window.scrollY
+          const scrollStart = bannerContainerGroundRect.top + scrollY
+          const scrollEnd = bannerContainerGroundRect.bottom + scrollY - window.innerHeight
+          const endStep = scrollEnd / 6
 
-            return function () {
-              const context = this;
-              const args = arguments;
-              const currentTime = Date.now();
-
-              if (currentTime - lastExecTime >= delay) {
-                func.apply(context, args);
-                lastExecTime = currentTime;
-              } else {
-                clearTimeout(timerId);
-                timerId = setTimeout(function () {
-                  func.apply(context, args);
-                  lastExecTime = currentTime;
-                }, delay - (currentTime - lastExecTime));
+          const commerceShowAnimate = new Animation({
+            documents: commerce,
+            start: scrollStart,
+            end: endStep,
+            delay: -100,
+            from: {
+              opacity: 0,
+              blur: 12,
+              scale: 2,
+            },
+            to: {
+              opacity: 1,
+              blur: 0,
+              scale: 1,
+            },
+            animate(styles) {
+              return {
+                opacity: x => styles.opacity(x),
+                filter: x => `blur(${styles.blur(x)}px)`,
+                transform: x => `scale(${styles.scale(x)})`
               }
-            };
-          }
-
-          function handleScroll(evt) {
-            const $scrollTop = $(this).scrollTop();
-            deltayCount = deltayCount + ($scrollTop - lastYOffset);
-
-            const idx = deltayCount / 10;
-            for (let i = 1; i <= charLen; i++) {
-              const from = {
-                opacity: i * idx * 0.02,
-                blur: i * 4 - i * idx * 0.3 > 0 ? i * 4 - i * idx * 0.3 : 0,
-                rotate: -(i * 2 - i * idx * 2 < 0 ? 0 : i * 2 - i * idx * 2),
-                scale: 1.5,
-              };
-
-              updateCss(commerce[i - 1], from);
-              updateCss(commerce[commerce.length - i], from);
-              lastYOffset = $(this).scrollTop();
             }
+          })
+          const commerceHideAnimate = new Animation({
+            documents: commerce,
+            start: endStep,
+            end: 2 * endStep,
+            delay: -100,
+            from: {
+              opacity: 1
+            },
+            to: {
+              opacity: 0
+            }
+          })
+          const dataShowAnimate = new Animation({
+            documents: data,
+            start: 2 * endStep,
+            end: 3 * endStep,
+            delay: -100,
+            from: {
+              opacity: 0,
+              blur: 12,
+              scale: 2,
+            },
+            to: {
+              opacity: 1,
+              blur: 0,
+              scale: 1,
+            },
+            animate(styles) {
+              return {
+                opacity: x => styles.opacity(x),
+                filter: x => `blur(${styles.blur(x)}px)`,
+                transform: x => `scale(${styles.scale(x)})`
+              }
+            }
+          })
+          const dataHideAnimate = new Animation({
+            documents: data,
+            start: 3 * endStep,
+            end: 4 * endStep,
+            delay: -100,
+            from: {
+              opacity: 1
+            },
+            to: {
+              opacity: 0
+            }
+          })
+          const aiShowAnimate = new Animation({
+            documents: ai,
+            start: 4 * endStep,
+            end: 5 * endStep,
+            delay: -100,
+            from: {
+              opacity: 0,
+              blur: 12,
+              scale: 2,
+            },
+            to: {
+              opacity: 1,
+              blur: 0,
+              scale: 1,
+            },
+            animate(styles) {
+              return {
+                opacity: x => styles.opacity(x),
+                filter: x => `blur(${styles.blur(x)}px)`,
+                transform: x => `scale(${styles.scale(x)})`
+              }
+            }
+          })
+          const aiHideAnimate = new Animation({
+            documents: ai,
+            start: 5 * endStep,
+            end: 6 * endStep,
+            delay: -100,
+            from: {
+              opacity: 1
+            },
+            to: {
+              opacity: 0
+            }
+          })
+          
+          function updateStyles() {
+            const scrollY = window.scrollY
+            commerceShowAnimate.update(scrollY)
+            commerceHideAnimate.update(scrollY)
+            dataShowAnimate.update(scrollY)
+            dataHideAnimate.update(scrollY)
+            aiShowAnimate.update(scrollY)
           }
 
-          $(window).on("scroll", handleScroll);
+          commerceShowAnimate.update(scrollY)
+          dataShowAnimate.update(scrollY)
+          aiShowAnimate.update(scrollY)
+
+          $(window).on("scroll", updateStyles);
         });
       })(jQuery);
     </script>
