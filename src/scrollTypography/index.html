@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .root {
+        height: 500vh;
+      }
+      .hm-banner_title-container {
+        position: sticky;
+        top: 35%;
+        transform: translateY(-50%);
+        width: 100%;
+      }
+      .hm-banner_title-container > div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .hm-banner_title-container .char {
+        font-family: Gellix;
+        font-size: 6vw;
+        font-style: normal;
+        font-weight: 700;
+        /* line-height: 312px; */
+        letter-spacing: -2.6px;
+        transform-origin: 50% 100%;
+        will-change: transform, filter;
+      }
+      .hm-banner_title-container .hm-commerce_C {
+        color: #8188da;
+      }
+      .hm-banner_title-container .hm-commerce_o {
+        color: #828ddc;
+      }
+      .hm-banner_title-container .hm-commerce_m {
+        color: #8396df;
+      }
+      .hm-banner_title-container .hm-commerce_m2 {
+        background: linear-gradient(90deg, #85a2e5 0%, #83b2e9 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-commerce_e {
+        background: linear-gradient(90deg, #82b6ea 0%, #7dc4ec 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-commerce_r {
+        background: linear-gradient(
+          90deg,
+          #7f7fd5 0%,
+          #7bc8ed 0.01%,
+          #78d2ef 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-commerce_c {
+        background: linear-gradient(90deg, #77d4ef 14.93%, #71e3f2 92.71%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-commerce_e2 {
+        background: linear-gradient(90deg, #70e6f2 13.45%, #6af6f5 97.24%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-commerce_dot {
+        color: #68fcf6;
+      }
+      .hm-banner_title-container .hm-data_D {
+        background: linear-gradient(90deg, #8082d7 4.24%, #8394df 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-data_a {
+        background: linear-gradient(90deg, #8397e0 4.14%, #86a6e7 95.86%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-data_t {
+        background: linear-gradient(90deg, #86a9e8 13.45%, #7ec0ec 97.24%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-data_a2 {
+        background: linear-gradient(90deg, #7dc4ec 15.32%, #70e7f3 89.81%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-data_dot {
+        color: #68fcf6;
+      }
+      .hm-banner_title-container .hm-ai_A {
+        background: linear-gradient(90deg, #8082d7 5.56%, #85ace8 95%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-ai_I {
+        background: linear-gradient(90deg, #80bdeb 24.56%, #79ceee 81.34%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hm-banner_title-container .hm-ai_dot {
+        background: linear-gradient(90deg, #72e0f1 23.33%, #6bf5f5 85.33%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <script src="../silky/silky.js"></script>
+  </head>
+  <body>
+    <div class="root">
+      <div class="hm-banner_title-container"></div>
+    </div>
+
+    <script>
+      (function ($) {
+        const createBannerTitle = () => {
+          const generateCharSlice = (char, classPrefix) => {
+            const charMapSlice = char.split("");
+            const charMap = {};
+
+            return charMapSlice.map((c, idx) => {
+              if (charMap[c]) {
+                charMap[c] = charMap[c] + 1;
+              } else {
+                charMap[c] = 1;
+              }
+
+              const label = idx === 0 ? c.toUpperCase() : c;
+              if (c === ".") {
+                return {
+                  label,
+                  class: `${classPrefix}_dot`,
+                  dataEffect: classPrefix,
+                };
+              }
+              return {
+                label,
+                class:
+                  charMap[c] > 1
+                    ? `${classPrefix}_${c}${charMap[c]}`
+                    : `${classPrefix}_${c}`,
+                dataEffect: classPrefix,
+              };
+            });
+          };
+
+          return {
+            ai: generateCharSlice("AI.", "hm-ai"),
+            data: generateCharSlice("Data.", "hm-data"),
+            commerce: generateCharSlice("Commerce.", "hm-commerce"),
+          };
+        };
+
+        const createNode = (slice = []) => {
+          let html = "";
+          slice.forEach((s) => {
+            html += `<span class="char ${s.class}" data-char="${s.label}" data-effect="${s.dataEffect}">${s.label}</span>`;
+          });
+
+          return html;
+        };
+
+        const createBannerEle = () => {
+          const { ai, data, commerce } = createBannerTitle();
+
+          return `
+                <div>${createNode(commerce)}</div>
+                `;
+        };
+
+        const $bannerTitleRoot = $(".hm-banner_title-container");
+        $bannerTitleRoot.append(createBannerEle());
+
+        const updateCss = (char, from = {}, to = {}) => {
+          $(char).css({
+            filter: `blur(${from.blur}px) opacity(${from.opacity})`,
+            transform: `translate3d(0px, 0px, 0px) rotate(${from.rotate}deg) scale(${from.scale})`,
+          });
+        };
+
+        $(document).ready(function () {
+          let lastYOffset = 0;
+          let deltayCount = 0;
+          const commerce = [...$('[data-effect="hm-commerce"].char')];
+          const data = [...$('[data-effect="hm-data"].char')];
+          const ai = [...$('[data-effect="hm-ai"].char')];
+
+          const charLen = Math.ceil(commerce.length / 2);
+          for (let i = 1; i <= charLen; i++) {
+            updateCss(commerce[i - 1], {
+              blur: i * 4,
+              opacity: 0,
+              rotate: -i * 2,
+              scale: 1.5,
+            });
+            updateCss(commerce[commerce.length - i], {
+              blur: i * 4,
+              opacity: 0,
+              rotate: -i * 2,
+              scale: 1.5,
+            });
+          }
+
+          const silky = new Silky();
+          silky.install();
+
+          function throttle(func, delay) {
+            let timerId;
+            let lastExecTime = 0;
+
+            return function () {
+              const context = this;
+              const args = arguments;
+              const currentTime = Date.now();
+
+              if (currentTime - lastExecTime >= delay) {
+                func.apply(context, args);
+                lastExecTime = currentTime;
+              } else {
+                clearTimeout(timerId);
+                timerId = setTimeout(function () {
+                  func.apply(context, args);
+                  lastExecTime = currentTime;
+                }, delay - (currentTime - lastExecTime));
+              }
+            };
+          }
+
+          function handleScroll(evt) {
+            const $scrollTop = $(this).scrollTop();
+            deltayCount = deltayCount + ($scrollTop - lastYOffset);
+
+            const idx = deltayCount / 10;
+            for (let i = 1; i <= charLen; i++) {
+              const from = {
+                opacity: i * idx * 0.02,
+                blur: i * 4 - i * idx * 0.3 > 0 ? i * 4 - i * idx * 0.3 : 0,
+                rotate: -(i * 2 - i * idx * 2 < 0 ? 0 : i * 2 - i * idx * 2),
+                scale: 1.5,
+              };
+
+              updateCss(commerce[i - 1], from);
+              updateCss(commerce[commerce.length - i], from);
+              lastYOffset = $(this).scrollTop();
+            }
+          }
+
+          $(window).on("scroll", handleScroll);
+        });
+      })(jQuery);
+    </script>
+  </body>
+</html>
