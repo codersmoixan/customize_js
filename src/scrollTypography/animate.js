@@ -11,9 +11,9 @@ class Animation {
   animationIndex = 0
   state = []
 
-  constructor(documents, animations) {
+  constructor(elements, animations) {
     this.animations = Array.isArray(animations) ? animations : [animations]
-    this.documents = documents
+    this.elements = elements
 
     this.updateAnimationMaps(this.animations[this.animationIndex])
     this.observer(['isBeforeStart', 'isAfterEnd'], newValue => {
@@ -34,7 +34,7 @@ class Animation {
     this.from = from
     this.to = to
     this.animate = animate
-    this.documents.forEach((dom, index) => {
+    this.elements.forEach((dom, index) => {
       this.state[index] = {
         running: false,
         completed: false,
@@ -45,7 +45,7 @@ class Animation {
     })
   }
 
-  getAnimation(start, end, index) {
+  getAnimation(start, end, dom, index) {
     const styles = {}
     for (const [key, value] of Object.entries(this.from)) {
       const animation = this.create(start, end, value, this.to[key], index)
@@ -58,12 +58,12 @@ class Animation {
       }
     }
 
-    return this.animate?.(styles) || styles
+    return this.animate?.(styles, dom) || styles
   }
 
   getDomAnimation(start, end, dom, index) {
     start += (dom.dataset.index || 0) * this.delay
-    return this.getAnimation(start, end, index)
+    return this.getAnimation(start, end, dom, index)
   }
 
   create(scrollStart, scrollEnd, startValue, endValue, index) {

@@ -24,6 +24,9 @@
           display: flex;
           align-items: center;
       }
+      .hm-banner_title-container div:first-of-type {
+          color: #7f7fd5;
+      }
       .animation-container > div  {
           position: absolute;
           display: flex;
@@ -31,13 +34,15 @@
           width: 100%;
       }
       .hm-banner_title-container .char {
-          display: block;
+          display: inline-block;
         font-family: Gellix;
         font-size: 260px;
+          /*font-size: 6vw;*/
         font-style: normal;
         font-weight: 700;
+          line-height: 1;
         /* line-height: 312px; */
-        letter-spacing: -2.6px;
+        /*letter-spacing: -2.6px;*/
         transform-origin: 50% 100%;
         will-change: transform, filter;
       }
@@ -199,7 +204,7 @@
         };
 
         const createBannerEle = () => {
-          const { ai, data, commerce } = createBannerTitle();
+          const { ai, data, commerce, liberation } = createBannerTitle();
 
           return `
                 <div>${createNode(commerce)}</div>
@@ -230,7 +235,7 @@
             {
               start: scrollStart,
               end: endStep,
-              delay: -100,
+              delay: -50,
               from: {
                 opacity: 0,
                 blur: 12,
@@ -241,7 +246,8 @@
                 blur: 0,
                 scale: 1,
               },
-              animate(styles) {
+              animate(styles, dom) {
+                const index = dom.dataset.index
                 return {
                   opacity: x => styles.opacity(x),
                   filter: x => `blur(${styles.blur(x)}px)`,
@@ -253,10 +259,12 @@
               start: endStep,
               end: 2 * endStep,
               from: {
-                opacity: 1
+                opacity: 1,
+                scale: 1
               },
               to: {
-                opacity: 0
+                opacity: 0,
+                scale: 0.5
               }
             }
           ])
@@ -267,7 +275,7 @@
             from: {
               opacity: 0,
               blur: 12,
-              scale: 2,
+              scale: 0.5,
             },
             to: {
               opacity: 1,
@@ -285,10 +293,12 @@
             start: 3 * endStep,
             end: 4 * endStep,
             from: {
-              opacity: 1
+              opacity: 1,
+              scale: 1
             },
             to: {
-              opacity: 0
+              opacity: 0,
+              scale: 2
             }
           }])
           const aiShowAnimate = new Animation(ai, {
