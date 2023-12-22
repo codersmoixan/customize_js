@@ -226,43 +226,41 @@
           const scrollEnd = bannerContainerGroundRect.bottom + scrollY - window.innerHeight
           const endStep = scrollEnd / 6
 
-          const commerceShowAnimate = new Animation({
-            documents: commerce,
-            start: scrollStart,
-            end: endStep,
-            delay: -100,
-            from: {
-              opacity: 0,
-              blur: 12,
-              scale: 2,
+          const commerceShowAnimate = new Animation(commerce, [
+            {
+              start: scrollStart,
+              end: endStep,
+              delay: -100,
+              from: {
+                opacity: 0,
+                blur: 12,
+                scale: 2,
+              },
+              to: {
+                opacity: 1,
+                blur: 0,
+                scale: 1,
+              },
+              animate(styles) {
+                return {
+                  opacity: x => styles.opacity(x),
+                  filter: x => `blur(${styles.blur(x)}px)`,
+                  transform: x => `scale(${styles.scale(x)})`
+                }
+              }
             },
-            to: {
-              opacity: 1,
-              blur: 0,
-              scale: 1,
-            },
-            animate(styles) {
-              return {
-                opacity: x => styles.opacity(x),
-                filter: x => `blur(${styles.blur(x)}px)`,
-                transform: x => `scale(${styles.scale(x)})`
+            {
+              start: endStep,
+              end: 2 * endStep,
+              from: {
+                opacity: 1
+              },
+              to: {
+                opacity: 0
               }
             }
-          })
-          const commerceHideAnimate = new Animation({
-            documents: commerce,
-            start: endStep,
-            end: 2 * endStep,
-            delay: -100,
-            from: {
-              opacity: 1
-            },
-            to: {
-              opacity: 0
-            }
-          })
-          const dataShowAnimate = new Animation({
-            documents: data,
+          ])
+          const dataShowAnimate = new Animation(data, [{
             start: 2 * endStep,
             end: 3 * endStep,
             delay: -100,
@@ -283,21 +281,17 @@
                 transform: x => `scale(${styles.scale(x)})`
               }
             }
-          })
-          const dataHideAnimate = new Animation({
-            documents: data,
+          }, {
             start: 3 * endStep,
             end: 4 * endStep,
-            delay: -100,
             from: {
               opacity: 1
             },
             to: {
               opacity: 0
             }
-          })
-          const aiShowAnimate = new Animation({
-            documents: ai,
+          }])
+          const aiShowAnimate = new Animation(ai, {
             start: 4 * endStep,
             end: 5 * endStep,
             delay: -100,
@@ -319,27 +313,17 @@
               }
             }
           })
-          const aiHideAnimate = new Animation({
-            documents: ai,
-            start: 5 * endStep,
-            end: 6 * endStep,
-            delay: -100,
-            from: {
-              opacity: 1
-            },
-            to: {
-              opacity: 0
-            }
-          })
           
           function updateStyles() {
             const scrollY = window.scrollY
             commerceShowAnimate.update(scrollY)
-            commerceHideAnimate.update(scrollY)
             dataShowAnimate.update(scrollY)
-            dataHideAnimate.update(scrollY)
             aiShowAnimate.update(scrollY)
           }
+
+          // commerceShowAnimate.observer(['isRunning', 'isCompleted'], newValue => {
+          //   console.log(newValue, 'newValue');
+          // })
 
           commerceShowAnimate.update(scrollY)
           dataShowAnimate.update(scrollY)
