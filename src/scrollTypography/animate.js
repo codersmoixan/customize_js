@@ -11,20 +11,19 @@ class Animation {
   animationIndex = 0
   state = []
 
-  constructor(documents, options) {
-    this.animations = Array.isArray(options) ? options : [options]
+  constructor(documents, animations) {
+    this.animations = Array.isArray(animations) ? animations : [animations]
     this.documents = documents
 
     this.updateAnimationMaps(this.animations[this.animationIndex])
-
     this.observer(['isBeforeStart', 'isAfterEnd'], newValue => {
-      console.log(newValue, 'newValue');
       if (newValue.isAfterEnd && this.animationIndex < this.animations.length - 1) {
         this.animationIndex += 1
       }
       if (newValue.isBeforeStart) {
         this.animationIndex -= 1
       }
+      this.animationIndex = this.animationIndex <= 0 ? 0 : this.animationIndex
       this.updateAnimationMaps(this.animations[this.animationIndex])
     })
   }
@@ -68,9 +67,9 @@ class Animation {
   }
 
   create(scrollStart, scrollEnd, startValue, endValue, index) {
-    return (x) => {
+    return (offset) => {
       const { running, beforeStart, afterEnd } = this.state[index]
-      if (x < scrollStart) {
+      if (offset < scrollStart) {
         if (running) {
           this.state[index] = {
             afterEnd,
@@ -81,7 +80,7 @@ class Animation {
         }
         return startValue
       }
-      if (x > scrollEnd) {
+      if (offset > scrollEnd) {
         if (running) {
           this.state[index] = {
             beforeStart,
@@ -99,7 +98,8 @@ class Animation {
         afterEnd: false,
         completed: false
       }
-      const progress = (x - scrollStart) / (scrollEnd - scrollStart)
+      const progress = (offset - scrollStart) / (scrollEnd - scrollStart)
+
       return startValue + (endValue - startValue) * progress
     }
   }
@@ -134,7 +134,8 @@ class Animation {
       })
     })
   }
-  push(options) {
-    this.animations.push(options)
+
+  push(animations) {
+    this.animations.push(animations)
   }
 }
