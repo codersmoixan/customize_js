@@ -1,3 +1,5 @@
+const isEmptyObject = obj => Object.keys(obj).length === 0
+
 class Animation {
   animationMap = new Map()
   animations = []
@@ -10,6 +12,8 @@ class Animation {
   isAfterEnd = false
   animationIndex = 0
   state = []
+  fromTo = null
+  effect = null
 
   constructor(elements, animations) {
     this.animations = Array.isArray(animations) ? animations : [animations]
@@ -29,11 +33,12 @@ class Animation {
   }
 
   updateAnimationMaps(option) {
-    const { start, end, from, to, animate, delay = 0 } = option
+    const { start, end, from, to, delay = 0, fromTo, effect } = option
     this.delay = delay
     this.from = from
     this.to = to
-    this.animate = animate
+    this.fromTo = fromTo
+    this.effect = effect
     this.elements.forEach((dom, index) => {
       this.state[index] = {
         running: false,
@@ -47,9 +52,18 @@ class Animation {
 
   getAnimation(start, end, dom, index) {
     const styles = {}
+
+    if (this.fromTo) {
+      const fromTo = this.fromTo?.(dom, { start, end, index }) || {}
+      for (const [key, value] of Object.entries(fromTo)) {
+        this.from[key] = value.from
+        this.to[key] = value.to
+      }
+    }
+
     for (const [key, value] of Object.entries(this.from)) {
       const animation = this.create(start, end, value, this.to[key], index)
-      if (this.animate) {
+      if (this.effect) {
         styles[key] = animation
       } else {
         styles[key] = function (x) {
@@ -58,11 +72,11 @@ class Animation {
       }
     }
 
-    return this.animate?.(styles, dom) || styles
+    return this.effect?.(styles, dom, index) || styles
   }
 
   getDomAnimation(start, end, dom, index) {
-    start += (dom.dataset.index || 0) * this.delay
+    start += (dom.dataset.index || index) * this.delay
     return this.getAnimation(start, end, dom, index)
   }
 

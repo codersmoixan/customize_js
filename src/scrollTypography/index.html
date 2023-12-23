@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
       .root {
-        height: 500vh;
+          height: 500vh;
           background: #6bf5f5;
           padding-top: 400px;
       }
       .hm-banner_title-container {
           background: #7f7fd5;
           height: 400vh;
-        width: 100%;
+          width: 100%;
           box-sizing: border-box;
       }
       .animation-container {
@@ -24,9 +24,6 @@
           display: flex;
           align-items: center;
       }
-      .hm-banner_title-container div:first-of-type {
-          color: #7f7fd5;
-      }
       .animation-container > div  {
           position: absolute;
           display: flex;
@@ -35,313 +32,358 @@
       }
       .hm-banner_title-container .char {
           display: inline-block;
-        font-family: Gellix;
-        font-size: 260px;
+          font-family: Gellix;
+          font-size: 260px;
           /*font-size: 6vw;*/
-        font-style: normal;
-        font-weight: 700;
+          font-style: normal;
+          font-weight: 700;
           line-height: 1;
-        /* line-height: 312px; */
-        /*letter-spacing: -2.6px;*/
-        transform-origin: 50% 100%;
-        will-change: transform, filter;
+          /* line-height: 312px; */
+          /*letter-spacing: -2.6px;*/
+          transform-origin: 50% 100%;
+          will-change: transform, filter;
       }
       .hm-banner_title-container .hm-commerce_C {
-        color: #8188da;
+          color: #8188da;
       }
       .hm-banner_title-container .hm-commerce_o {
-        color: #828ddc;
+          color: #828ddc;
       }
       .hm-banner_title-container .hm-commerce_m {
-        color: #8396df;
+          color: #8396df;
       }
       .hm-banner_title-container .hm-commerce_m2 {
-        background: linear-gradient(90deg, #85a2e5 0%, #83b2e9 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #85a2e5 0%, #83b2e9 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-commerce_e {
-        background: linear-gradient(90deg, #82b6ea 0%, #7dc4ec 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #82b6ea 0%, #7dc4ec 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-commerce_r {
-        background: linear-gradient(
-          90deg,
-          #7f7fd5 0%,
-          #7bc8ed 0.01%,
-          #78d2ef 100%
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(
+                  90deg,
+                  #7f7fd5 0%,
+                  #7bc8ed 0.01%,
+                  #78d2ef 100%
+          );
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-commerce_c {
-        background: linear-gradient(90deg, #77d4ef 14.93%, #71e3f2 92.71%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #77d4ef 14.93%, #71e3f2 92.71%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-commerce_e2 {
-        background: linear-gradient(90deg, #70e6f2 13.45%, #6af6f5 97.24%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #70e6f2 13.45%, #6af6f5 97.24%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-commerce_dot {
-        color: #68fcf6;
+          color: #68fcf6;
       }
       .hm-banner_title-container .hm-data_D {
-        background: linear-gradient(90deg, #8082d7 4.24%, #8394df 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #8082d7 4.24%, #8394df 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-data_a {
-        background: linear-gradient(90deg, #8397e0 4.14%, #86a6e7 95.86%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #8397e0 4.14%, #86a6e7 95.86%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-data_t {
-        background: linear-gradient(90deg, #86a9e8 13.45%, #7ec0ec 97.24%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #86a9e8 13.45%, #7ec0ec 97.24%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-data_a2 {
-        background: linear-gradient(90deg, #7dc4ec 15.32%, #70e7f3 89.81%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #7dc4ec 15.32%, #70e7f3 89.81%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-data_dot {
-        color: #68fcf6;
+          color: #68fcf6;
       }
       .hm-banner_title-container .hm-ai_A {
-        background: linear-gradient(90deg, #8082d7 5.56%, #85ace8 95%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #8082d7 5.56%, #85ace8 95%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-ai_I {
-        background: linear-gradient(90deg, #80bdeb 24.56%, #79ceee 81.34%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #80bdeb 24.56%, #79ceee 81.34%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
       .hm-banner_title-container .hm-ai_dot {
-        background: linear-gradient(90deg, #72e0f1 23.33%, #6bf5f5 85.33%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #72e0f1 23.33%, #6bf5f5 85.33%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
       }
-    </style>
-    <script src="../jquery-3.7.1.min.js"></script>
-    <script src="../silky/silky.js"></script>
-    <script src="./animate.js"></script>
-  </head>
-  <body>
-    <div class="root">
-      <div class="hm-banner_title-container">
-        <div class="animation-container"></div>
-      </div>
-    </div>
+  </style>
+  <script src="../jquery-3.7.1.min.js"></script>
+  <script src="../silky/silky.js"></script>
+  <script src="./animate.js"></script>
+</head>
+<body>
+<div class="root">
+  <div class="hm-banner_title-container">
+    <div class="animation-container"></div>
+  </div>
+</div>
 
-    <script>
-      (function ($) {
-        const createBannerTitle = () => {
-          const generateCharSlice = (char, classPrefix) => {
-            const charMapSlice = char.split("");
-            const charMap = {};
+<script>
+  (function ($) {
+    const createBannerTitle = () => {
+      const generateCharSlice = (char, classPrefix) => {
+        const charMapSlice = char.split("");
+        const charMap = {};
 
-            return charMapSlice.map((c, idx) => {
-              if (charMap[c]) {
-                charMap[c] = charMap[c] + 1;
-              } else {
-                charMap[c] = 1;
-              }
-
-              const label = idx === 0 ? c.toUpperCase() : c;
-              const len = Math.floor(charMapSlice.length / 2)
-              const index = idx > len ? charMapSlice.length - (idx + 1) : idx
-              if (c === ".") {
-                return {
-                  label,
-                  class: `${classPrefix}_dot`,
-                  dataEffect: classPrefix,
-                  index
-                };
-              }
-              return {
-                label,
-                class:
-                  charMap[c] > 1
-                    ? `${classPrefix}_${c}${charMap[c]}`
-                    : `${classPrefix}_${c}`,
-                dataEffect: classPrefix,
-                index
-              };
-            });
-          };
-
-          return {
-            ai: generateCharSlice("AI.", "hm-ai"),
-            data: generateCharSlice("Data.", "hm-data"),
-            commerce: generateCharSlice("Commerce.", "hm-commerce"),
-          };
-        };
-
-        const createNode = (slice = []) => {
-          let html = "";
-          slice.forEach((s) => {
-            html += `<span class="char ${s.class}" data-index="${s.index}" data-char="${s.label}" data-effect="${s.dataEffect}">${s.label}</span>`;
-          });
-
-          return html;
-        };
-
-        const createBannerEle = () => {
-          const { ai, data, commerce, liberation } = createBannerTitle();
-
-          return `
-                <div>${createNode(commerce)}</div>
-                <div>${createNode(data)}</div>
-                <div>${createNode(ai)}</div>
-                `;
-        };
-
-        const $animationContainer = $(".animation-container");
-        $animationContainer.append(createBannerEle());
-
-        $(document).ready(function () {
-          const commerce = [...$('[data-effect="hm-commerce"].char')];
-          const data = [...$('[data-effect="hm-data"].char')];
-          const ai = [...$('[data-effect="hm-ai"].char')];
-
-          const silky = new Silky();
-          silky.install();
-
-          const bannerContainer = document.querySelector('.hm-banner_title-container')
-          const bannerContainerGroundRect = bannerContainer.getBoundingClientRect()
-          const scrollY = window.scrollY
-          const scrollStart = bannerContainerGroundRect.top + scrollY
-          const scrollEnd = bannerContainerGroundRect.bottom + scrollY - window.innerHeight
-          const endStep = scrollEnd / 6
-
-          const commerceShowAnimate = new Animation(commerce, [
-            {
-              start: scrollStart,
-              end: endStep,
-              delay: -50,
-              from: {
-                opacity: 0,
-                blur: 12,
-                scale: 2,
-              },
-              to: {
-                opacity: 1,
-                blur: 0,
-                scale: 1,
-              },
-              animate(styles, dom) {
-                const index = dom.dataset.index
-                return {
-                  opacity: x => styles.opacity(x),
-                  filter: x => `blur(${styles.blur(x)}px)`,
-                  transform: x => `scale(${styles.scale(x)})`
-                }
-              }
-            },
-            {
-              start: endStep,
-              end: 2 * endStep,
-              from: {
-                opacity: 1,
-                scale: 1
-              },
-              to: {
-                opacity: 0,
-                scale: 0.5
-              }
-            }
-          ])
-          const dataShowAnimate = new Animation(data, [{
-            start: 2 * endStep,
-            end: 3 * endStep,
-            delay: -100,
-            from: {
-              opacity: 0,
-              blur: 12,
-              scale: 0.5,
-            },
-            to: {
-              opacity: 1,
-              blur: 0,
-              scale: 1,
-            },
-            animate(styles) {
-              return {
-                opacity: x => styles.opacity(x),
-                filter: x => `blur(${styles.blur(x)}px)`,
-                transform: x => `scale(${styles.scale(x)})`
-              }
-            }
-          }, {
-            start: 3 * endStep,
-            end: 4 * endStep,
-            from: {
-              opacity: 1,
-              scale: 1
-            },
-            to: {
-              opacity: 0,
-              scale: 2
-            }
-          }])
-          const aiShowAnimate = new Animation(ai, {
-            start: 4 * endStep,
-            end: 5 * endStep,
-            delay: -100,
-            from: {
-              opacity: 0,
-              blur: 12,
-              scale: 2,
-            },
-            to: {
-              opacity: 1,
-              blur: 0,
-              scale: 1,
-            },
-            animate(styles) {
-              return {
-                opacity: x => styles.opacity(x),
-                filter: x => `blur(${styles.blur(x)}px)`,
-                transform: x => `scale(${styles.scale(x)})`
-              }
-            }
-          })
-          
-          function updateStyles() {
-            const scrollY = window.scrollY
-            commerceShowAnimate.update(scrollY)
-            dataShowAnimate.update(scrollY)
-            aiShowAnimate.update(scrollY)
+        return charMapSlice.map((c, idx) => {
+          if (charMap[c]) {
+            charMap[c] = charMap[c] + 1;
+          } else {
+            charMap[c] = 1;
           }
 
-          // commerceShowAnimate.observer(['isRunning', 'isCompleted'], newValue => {
-          //   console.log(newValue, 'newValue');
-          // })
-
-          commerceShowAnimate.update(scrollY)
-          dataShowAnimate.update(scrollY)
-          aiShowAnimate.update(scrollY)
-
-          $(window).on("scroll", updateStyles);
+          const label = idx === 0 ? c.toUpperCase() : c;
+          const len = Math.floor(charMapSlice.length / 2)
+          const index = idx > len ? charMapSlice.length - (idx + 1) : idx
+          if (c === ".") {
+            return {
+              label,
+              class: `${classPrefix}_dot`,
+              dataEffect: classPrefix,
+              index
+            };
+          }
+          return {
+            label,
+            class:
+              charMap[c] > 1
+                ? `${classPrefix}_${c}${charMap[c]}`
+                : `${classPrefix}_${c}`,
+            dataEffect: classPrefix,
+            index
+          };
         });
-      })(jQuery);
-    </script>
-  </body>
+      };
+
+      return {
+        ai: generateCharSlice("AI.", "hm-ai"),
+        data: generateCharSlice("Data.", "hm-data"),
+        commerce: generateCharSlice("Commerce.", "hm-commerce"),
+      };
+    };
+
+    const createNode = (slice = []) => {
+      let html = "";
+      slice.forEach((s) => {
+        html += `<span class="char ${s.class}" data-index="${s.index}" data-char="${s.label}" data-effect="${s.dataEffect}">${s.label}</span>`;
+      });
+
+      return html;
+    };
+
+    const createBannerEle = () => {
+      const { ai, data, commerce, liberation } = createBannerTitle();
+
+      return `
+                <div class="banner-commerce">${createNode(commerce)}</div>
+                <div class="banner-data">${createNode(data)}</div>
+                <div class="banner-ai">${createNode(ai)}</div>
+                `;
+    };
+
+    const $animationContainer = $(".animation-container");
+    $animationContainer.append(createBannerEle());
+
+    $(document).ready(function () {
+      const commerce = [...$('[data-effect="hm-commerce"].char')];
+      const data = [...$('[data-effect="hm-data"].char')];
+      const ai = [...$('[data-effect="hm-ai"].char')];
+
+      // const silky = new Silky();
+      // silky.install();
+
+      const bannerContainer = document.querySelector('.hm-banner_title-container')
+      const bannerContainerGroundRect = bannerContainer.getBoundingClientRect()
+      const scrollY = window.scrollY
+      const scrollStart = bannerContainerGroundRect.top + scrollY
+      const scrollEnd = bannerContainerGroundRect.bottom + scrollY - window.innerHeight
+      const endStep = scrollEnd / 6
+      
+      const $bannerCommerce = $('.hm-banner_title-container .banner-commerce')
+      const $bannerData = $('.hm-banner_title-container .banner-data')
+      const { clientWidth: cWidth } = $bannerCommerce[0]
+      const { clientWidth: dWidth } = $bannerData[0]
+
+      const commerceShowAnimate = new Animation(commerce, [
+        {
+          start: scrollStart,
+          end: endStep,
+          delay: -50,
+          from: {
+            opacity: 0,
+            blur: 20,
+            scale: 2,
+            rotate: 20
+          },
+          to: {
+            opacity: 1,
+            blur: 0,
+            scale: 1,
+            rotate: 0
+          },
+          effect(styles) {
+            return {
+              opacity: x => styles.opacity(x),
+              filter: x => `blur(${styles.blur(x)}px)`,
+              transform: x => `scale(${styles.scale(x)})`
+            }
+          }
+        },
+        {
+          start: endStep,
+          end: 2 * endStep,
+          delay: 80,
+          from: {
+            opacity: 1,
+            scale: 1,
+            blur: 0,
+          },
+          to: {
+            opacity: 0,
+            scale: 0.5,
+            blur: 20,
+          },
+          fromTo(dom) {
+            const { clientWidth, offsetLeft } = dom
+
+            return {
+              translateX: {
+                from: 0,
+                to: cWidth / 2 - clientWidth / 2 - offsetLeft
+              }
+            }
+          },
+          effect(styles) {
+            return {
+              opacity: x => styles.opacity(x),
+              filter: x => `blur(${styles.blur(x)}px)`,
+              transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)})`
+            }
+          }
+        }
+      ])
+      const dataShowAnimate = new Animation(data, [{
+        start: 2 * endStep,
+        end: 3 * endStep,
+        delay: -100,
+        from: {
+          opacity: 0,
+          blur: 20,
+          scale: 0.5,
+        },
+        to: {
+          opacity: 1,
+          blur: 0,
+          scale: 1,
+        },
+        fromTo(dom) {
+          const { clientWidth, offsetLeft } = dom
+
+          return {
+            translateX: {
+              from: dWidth / 2 - clientWidth / 2 - offsetLeft,
+              to: 0
+            }
+          }
+        },
+        effect(styles) {
+          return {
+            opacity: x => styles.opacity(x),
+            filter: x => `blur(${styles.blur(x)}px)`,
+            transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)})`
+          }
+        }
+      }, {
+        start: 3 * endStep,
+        end: 4 * endStep,
+        from: {
+          opacity: 1,
+          scale: 1,
+          blur: 0,
+        },
+        to: {
+          opacity: 0,
+          scale: 2,
+          blur: 20,
+        },
+        effect(styles) {
+          return {
+            opacity: x => styles.opacity(x),
+            filter: x => `blur(${styles.blur(x)}px)`,
+            transform: x => `scale(${styles.scale(x)})`
+          }
+        }
+      }])
+      const aiShowAnimate = new Animation(ai, {
+        start: 4 * endStep,
+        end: 5 * endStep,
+        delay: -100,
+        from: {
+          opacity: 0,
+          blur: 20,
+          scale: 2,
+        },
+        to: {
+          opacity: 1,
+          blur: 0,
+          scale: 1,
+        },
+        effect(styles) {
+          return {
+            opacity: x => styles.opacity(x),
+            filter: x => `blur(${styles.blur(x)}px)`,
+            transform: x => `scale(${styles.scale(x)})`
+          }
+        }
+      })
+
+      function updateStyles() {
+        const scrollY = window.scrollY
+        commerceShowAnimate.update(scrollY)
+        dataShowAnimate.update(scrollY)
+        aiShowAnimate.update(scrollY)
+      }
+
+      // commerceShowAnimate.observer(['isRunning', 'isCompleted'], newValue => {
+      //   console.log(newValue, 'newValue');
+      // })
+
+      commerceShowAnimate.update(scrollY)
+      dataShowAnimate.update(scrollY)
+      aiShowAnimate.update(scrollY)
+
+      $(window).on("scroll", updateStyles);
+    });
+  })(jQuery);
+</script>
+</body>
 </html>
