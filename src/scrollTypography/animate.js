@@ -3,6 +3,7 @@ const isEmptyObject = obj => Object.keys(obj).length === 0
 class Animation {
   animationMap = new Map()
   animations = []
+  elements = []
   from = {}
   to = {}
   delay = 0
@@ -15,9 +16,9 @@ class Animation {
   fromTo = null
   effect = null
 
-  constructor(elements, animations) {
+  constructor(elements = [], animations = []) {
     this.animations = Array.isArray(animations) ? animations : [animations]
-    this.elements = elements
+    this.elements = Array.isArray(elements) ? elements : [elements]
 
     this.updateAnimationMaps(this.animations[this.animationIndex])
     this.observer(['isBeforeStart', 'isAfterEnd'], newValue => {
@@ -32,7 +33,10 @@ class Animation {
     })
   }
 
-  updateAnimationMaps(option) {
+  updateAnimationMaps(option = {}) {
+    if (isEmptyObject(option)) {
+      return
+    }
     const { start, end, from, to, delay = 0, fromTo, effect } = option
     this.delay = delay
     this.from = from
@@ -82,26 +86,23 @@ class Animation {
 
   create(scrollStart, scrollEnd, startValue, endValue, index) {
     return (offset) => {
-      const { running, beforeStart, afterEnd } = this.state[index]
+      const { beforeStart, afterEnd } = this.state[index]
       if (offset < scrollStart) {
-        if (running) {
-          this.state[index] = {
-            afterEnd,
-            beforeStart: true,
-            running: false,
-            completed: true,
-          }
+        this.state[index] = {
+          afterEnd,
+          beforeStart: true,
+          running: false,
+          completed: true,
         }
+
         return startValue
       }
       if (offset > scrollEnd) {
-        if (running) {
-          this.state[index] = {
-            beforeStart,
-            afterEnd: true,
-            running: false,
-            completed: true
-          }
+        this.state[index] = {
+          beforeStart,
+          afterEnd: true,
+          running: false,
+          completed: true
         }
         return endValue
       }
@@ -121,7 +122,7 @@ class Animation {
   update(y) {
     for (const [dom, animations] of this.animationMap) {
       for (const prop in animations) {
-        dom.style[prop] = animations[prop](y)
+        dom.style[prop] = animations[prop]?.(y)
       }
     }
 
