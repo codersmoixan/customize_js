@@ -237,31 +237,34 @@
         {
           start: scrollStart,
           end: endStep,
-          delay: -50,
+          delay: () => -50,
           from: {
             opacity: 0,
             blur: 20,
             scale: 2,
-            rotate: 20
           },
           to: {
             opacity: 1,
             blur: 0,
             scale: 1,
-            rotate: 0
+          },
+          fromTo(dom, { index }) {
+            return {
+              rotate: { from: index % 2 === 0 ? 25 : -25, to: 0 }
+            }
           },
           effect(styles) {
             return {
               opacity: x => styles.opacity(x),
               filter: x => `blur(${styles.blur(x)}px)`,
-              transform: x => `scale(${styles.scale(x)})`
+              transform: x => `scale(${styles.scale(x)}) rotate(${styles.rotate(x)}deg)`
             }
           }
         },
         {
           start: endStep,
           end: 2 * endStep,
-          delay: 80,
+          delay: () => 80,
           from: {
             opacity: 1,
             scale: 1,
@@ -272,21 +275,22 @@
             scale: 0.5,
             blur: 20,
           },
-          fromTo(dom) {
+          fromTo(dom, { index }) {
             const { clientWidth, offsetLeft } = dom
 
             return {
               translateX: {
                 from: 0,
                 to: cWidth / 2 - clientWidth / 2 - offsetLeft
-              }
+              },
+              rotate: { from: 0, to: index % 2 === 0 ? 25 : -25 }
             }
           },
           effect(styles) {
             return {
               opacity: x => styles.opacity(x),
               filter: x => `blur(${styles.blur(x)}px)`,
-              transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)})`
+              transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)}) rotate(${styles.rotate(x)}deg)`
             }
           }
         }
@@ -305,21 +309,22 @@
           blur: 0,
           scale: 1,
         },
-        fromTo(dom) {
+        fromTo(dom, { index }) {
           const { clientWidth, offsetLeft } = dom
 
           return {
             translateX: {
               from: dWidth / 2 - clientWidth / 2 - offsetLeft,
               to: 0
-            }
+            },
+            rotate: { from: index % 2 === 0 ? 25 : -25, to: 0 }
           }
         },
         effect(styles) {
           return {
             opacity: x => styles.opacity(x),
             filter: x => `blur(${styles.blur(x)}px)`,
-            transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)})`
+            transform: x => `translateX(${styles.translateX(x)}px) scale(${styles.scale(x)}) rotate(${styles.rotate(x)}deg)`
           }
         }
       }, {
@@ -335,11 +340,16 @@
           scale: 2,
           blur: 20,
         },
+        fromTo(dom, { index }) {
+          return {
+            rotate: { from: 0, to: index % 2 === 0 ? 25 : -25 }
+          }
+        },
         effect(styles) {
           return {
             opacity: x => styles.opacity(x),
             filter: x => `blur(${styles.blur(x)}px)`,
-            transform: x => `scale(${styles.scale(x)})`
+            transform: x => `scale(${styles.scale(x)}) rotate(${styles.rotate(x)}deg)`
           }
         }
       }])
@@ -357,11 +367,16 @@
           blur: 0,
           scale: 1,
         },
+        fromTo(dom, { index }) {
+          return {
+            rotate: { from: index % 2 === 0 ? 25 : -25, to: 0 }
+          }
+        },
         effect(styles) {
           return {
             opacity: x => styles.opacity(x),
             filter: x => `blur(${styles.blur(x)}px)`,
-            transform: x => `scale(${styles.scale(x)})`
+            transform: x => `scale(${styles.scale(x)}) rotate(${styles.rotate(x)}deg)`
           }
         }
       })

@@ -1,4 +1,5 @@
 const isEmptyObject = obj => Object.keys(obj).length === 0
+const isNumber = val => typeof val === 'number'
 
 class Animation {
   animationMap = new Map()
@@ -6,7 +7,7 @@ class Animation {
   elements = []
   from = {}
   to = {}
-  delay = 0
+  delay = null
   isRunning = false
   isCompleted = false
   isBeforeStart = false
@@ -80,7 +81,7 @@ class Animation {
   }
 
   getDomAnimation(start, end, dom, index) {
-    start += (dom.dataset.index || index) * this.delay
+    start += isNumber(this.delay) ? ((dom.dataset.index || index) * this.delay) : (this.delay?.(dom, index) || 0)
     return this.getAnimation(start, end, dom, index)
   }
 
